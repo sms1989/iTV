@@ -1,11 +1,10 @@
 # iTV
 
-iTV is a tvOS application that aggregates several Iranian video on demand platforms. The project currently displays a simple list of supported platforms and uses localized Persian strings. Each provider is implemented as a separate module and references a logo asset. Binary image files are omitted from the repository, so the app falls back to system symbols as placeholders.
+iTV is a tvOS application that aggregates several Iranian video on demand platforms. The project currently displays the supported platforms and uses localized Persian strings. Each provider is implemented as a separate module and now includes a vector logo asset.
 
 ## Platforms
 
 - Filimo
-- Namava
 - Film Net
 - Star Net
 
