@@ -14,21 +14,32 @@ struct ContentView: View {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(modules, id: \.id) { module in
-                        VStack {
-                            Image(module.logoAssetName)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 120)
+                        NavigationLink(destination: destination(for: module)) {
+                            VStack {
+                                Image(module.logoAssetName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 120)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.black)
+                            .cornerRadius(12)
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.black)
-                        .cornerRadius(12)
                     }
                 }
                 .padding()
             }
             .navigationTitle(Text("platforms.title"))
+        }
+    }
+
+    @ViewBuilder
+    private func destination(for module: any PlatformModule) -> some View {
+        if module is StarNet {
+            StarNetHomeView()
+        } else {
+            Text(NSLocalizedString(module.nameKey, comment: ""))
         }
     }
 }
