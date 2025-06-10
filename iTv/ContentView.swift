@@ -7,7 +7,7 @@ struct ContentView: View {
         StarNet()
     ]
 
-    private let columns = [GridItem(.adaptive(minimum: 240))]
+    private let columns = [GridItem(.adaptive(minimum: 360))]
 
     var body: some View {
         NavigationStack {
