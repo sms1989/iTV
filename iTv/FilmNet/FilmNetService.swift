@@ -47,7 +47,6 @@ struct FilmNetService {
         let url = URL(string: "https://api-v2.filmnet.ir/widgets/personal-home-page")!
         let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()
-
         // 1. Standard `{ "data": [ ... ] }` format.
         if let response = try? decoder.decode(Response.self, from: data) {
             return response.data
