@@ -32,7 +32,13 @@ struct FilmNetService {
     func fetchHomePage() async throws -> [Widget] {
         let url = URL(string: "https://api-v2.filmnet.ir/widgets/personal-home-page")!
         let (data, _) = try await URLSession.shared.data(from: url)
-        let decoded = try JSONDecoder().decode(Response.self, from: data)
-        return decoded.data
+        let decoder = JSONDecoder()
+        if let response = try? decoder.decode(Response.self, from: data) {
+            return response.data
+        } else {
+            // Some FilmNet endpoints return an array at the top level instead of
+            // wrapping the widgets in a `data` container.
+            return try decoder.decode([Widget].self, from: data)
+        }
     }
 }
