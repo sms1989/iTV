@@ -10,8 +10,11 @@ iTV is a tvOS application that aggregates several Iranian video on demand platfo
 
 ## Notes
 
-The FilmNet API responses sometimes omit the `data` container. The home page
-loader now falls back to decoding an array when the `data` field is missing.
+The FilmNet API is inconsistent about how widgets are returned. Sometimes
+they appear under a `data` field, other times under `data.widgets` or even a
+top-level `widgets` key. When no container is present the API returns the
+array directly. The `FilmNetService` now tries each format in turn so the
+home screen loads regardless of which wrapper is used.
 
 ## License
 
