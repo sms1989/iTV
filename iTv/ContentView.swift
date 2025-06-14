@@ -38,6 +38,8 @@ struct ContentView: View {
     private func destination(for module: any PlatformModule) -> some View {
         if module is StarNet {
             StarNetHomeView()
+        } else if module is FilmNet {
+            FilmNetHomeView()
         } else {
             Text(NSLocalizedString(module.nameKey, comment: ""))
         }
