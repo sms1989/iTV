@@ -8,29 +8,37 @@ struct ContentView: View {
     ]
 
     private let columns = [GridItem(.adaptive(minimum: 360))]
+    @State private var path = NavigationPath()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 20) {
+                LazyVGrid(columns: columns, spacing: 32) {
                     ForEach(modules, id: \.id) { module in
-                        NavigationLink(destination: destination(for: module)) {
-                            VStack {
-                                Image(module.logoAssetName)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 120)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.black)
-                            .cornerRadius(12)
+                        FocusableNavigationButton(id: module.id) { id in
+                            path.append(id)
+                        } content: {
+                            Image(module.logoAssetName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 120)
+                                .padding()
+                                .background(Color.black)
+                                .cornerRadius(12)
                         }
+                        .padding(8)
                     }
                 }
                 .padding()
             }
             .navigationTitle(Text("platforms.title"))
+            .navigationDestination(for: UUID.self) { id in
+                if let module = modules.first(where: { $0.id == id }) {
+                    destination(for: module)
+                } else {
+                    Text("platforms.title")
+                }
+            }
         }
     }
 
